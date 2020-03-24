@@ -1,0 +1,25 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "description": "Simple todo app built with express, mysql, gg oauth2 and passion!",
+  "main": "app.js",
+  "scripts": {
+    "db:pre-migrate": "npx sequelize db:create",
+    "db:migrate": "npm run db:pre-migrate && npx sequelize db:migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:ltv/c/rulers/todo_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
+    "uuid": "^7.0.2"
+  }
+}
