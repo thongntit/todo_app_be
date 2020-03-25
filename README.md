@@ -2,6 +2,12 @@
 
 Simple todo app built with express, mysql, gg oauth2 and passion!
 
+Start develop enviroment
+1. Run `make env` to start mysql server
+2. Run `make pre-migrate` to create db
+3. Run `make migrate` to migrate scheme to db
+
+
 Setup
 
 1. Change environment variables in .env file
