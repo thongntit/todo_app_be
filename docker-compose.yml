@@ -11,9 +11,14 @@ services:
       MYSQL_ROOT_PASSWORD: example
     ports:
       - 3306:3306
+    volumes:
+      - todo_db:/var/lib/mysql
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8000:8080
+
+volumes:
+  todo_db:
