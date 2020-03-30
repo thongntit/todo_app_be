@@ -7,34 +7,37 @@ module.exports = {
         autoIncrement: false,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
       },
       userId: {
         type: Sequelize.UUID,
         foreignKey: true,
+        onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
+          as: 'userId',
         },
-        allowNull: false
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Tasks');
-  }
+  },
 };

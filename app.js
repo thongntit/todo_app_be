@@ -1,15 +1,12 @@
-require('dotenv').config();
 const express = require('express');
-const db = require("./models");
 const app = express();
 const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
+const router = require('./router');
 
-//app.set('views', path.resolve(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => res.send('Hello World!'));
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+app.use('/api', router);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
