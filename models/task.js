@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: false,
       },
-      title: DataTypes.STRING,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       description: DataTypes.TEXT,
       startTime: DataTypes.DATE,
       dueTime: DataTypes.DATE,
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  Task.associate = function(models) {
+  Task.associate = function (models) {
     Task.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE', allowNull: false });
   };
   return Task;
