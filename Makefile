@@ -7,5 +7,5 @@ pre-migrate:
 	npx sequelize db:create
 migrate: pre-migrate
 	npx sequelize db:migrate
-run: pre-migrate
-	node app.js
+run:
+	nodemon app.js
