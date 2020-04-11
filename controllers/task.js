@@ -41,3 +41,30 @@ exports.findTaskById = (req, res) => {
       }),
     );
 };
+exports.updateTask = async (req, res) => {
+  const { id, title, description, startTime, dueTime, status } = req.body
+  if (!id) {
+    res.status(400).send({
+      message: 'Id can not be empty!'
+    })
+  } else {
+    try {
+      const foundTask = await Task.findByPk(id)
+      if (foundTask) {
+        let payload = {}
+        title ? payload.title = title : null
+        description ? payload.description = description : null
+        startTime ? payload.startTime = startTime : null
+        dueTime ? payload.dueTime = dueTime : null
+        status ? payload.status = status : null
+        const updatedTask = await foundTask.update(payload)
+        if (updatedTask) {
+          res.status(200).send(updatedTask)
+        }
+      }
+    }
+    catch (err) {
+      res.status(500).send(err)
+    }
+  }
+}
