@@ -8,4 +8,4 @@ pre-migrate:
 migrate: pre-migrate
 	npx sequelize db:migrate
 run:
-	nodemon app.js
+	npx nodemon app.js
