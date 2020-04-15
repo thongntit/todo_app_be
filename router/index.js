@@ -1,11 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const taskController = require('../controllers').task;
+const app = (module.exports = require("express")());
 
-('use strict');
+("use strict");
 
-router.post('/createTask', taskController.createTask);
-router.post('/findTaskById', taskController.findTaskById);
-router.post('/updateTask', taskController.updateTask);
+app.use("/tasks", require("./tasks"));
 
-module.exports = router;
+app.all("*", (req, res) => {
+  res.status(404).send({ msg: "not found" });
+});
