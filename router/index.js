@@ -2,6 +2,7 @@ const app = (module.exports = require("express")());
 
 ("use strict");
 
+app.use("/auth", require("./auth"));
 app.use("/tasks", require("./tasks"));
 
 app.all("*", (req, res) => {

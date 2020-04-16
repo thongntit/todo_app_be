@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define(
-    'User',
+    "User",
     {
       id: {
         type: DataTypes.UUID,
@@ -11,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: false,
       },
       username: DataTypes.STRING,
-      authenticationString: DataTypes.STRING,
+      authenticationString: DataTypes.TEXT("long"),
       email: {
         type: DataTypes.STRING,
-        unique: true
-      }
+        unique: true,
+      },
     },
-    {},
+    {}
   );
-  User.associate = function(models) {
-    User.hasMany(models.Task, { foreignKey: 'userId', as: 'tasks' });
+  User.associate = function (models) {
+    User.hasMany(models.Task, { foreignKey: "userId", as: "tasks" });
   };
   return User;
 };
