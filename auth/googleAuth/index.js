@@ -10,44 +10,46 @@ exports.login = async (req, res) => {
   } else {
     let data = jwt.decode(tokenId);
     try {
-      const foundUser = await User.findOne({
+      User.findOne({
         where: {
           email: data.email,
         },
-      }).catch((error) =>
-        res.status(500).send({
-          message: error.message || "Some error occurred while finding user",
+      })
+        .then((foundUser) => {
+          if (!foundUser) {
+            User.create({
+              username: data.name,
+              email: data.email,
+              authenticationString: tokenId,
+            })
+              .then((user) => {
+                res.status(201).send(user);
+              })
+              .catch((error) =>
+                res.status(500).send({
+                  message:
+                    error.message || "Some error occurred while creating user",
+                })
+              );
+          } else {
+            foundUser
+              .update({ authenticationString: tokenId })
+              .then((user) => {
+                res.status(200).send(foundUser);
+              })
+              .catch((error) =>
+                res.status(500).send({
+                  message:
+                    error.message || "Some error occurred while updating user",
+                })
+              );
+          }
         })
-      );
-
-      if (!foundUser) {
-        User.create({
-          username: data.name,
-          email: data.email,
-          authenticationString: tokenId,
-        })
-          .then((user) => {
-            req.session.user = foundUser;
-            res.status(201).send(user);
+        .catch((error) =>
+          res.status(500).send({
+            message: error.message || "Some error occurred while finding user",
           })
-          .catch((error) =>
-            res.status(500).send({
-              message:
-                error.message || "Some error occurred while creating user",
-            })
-          );
-      } else {
-        await foundUser
-          .update({ authenticationString: tokenId })
-          .catch((error) =>
-            res.status(500).send({
-              message:
-                error.message || "Some error occurred while updating user",
-            })
-          );
-        req.session.user = foundUser;
-        res.status(200).send(foundUser);
-      }
+        );
     } catch (error) {
       res.status(500).send(error);
     }
