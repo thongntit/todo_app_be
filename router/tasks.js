@@ -7,7 +7,7 @@ const {
   getAllTasks
 } = require('../api').tasks;
 
-app.post('/create', createTask);
-app.post('/findTaskById', findTaskById);
-app.post('/update', updateTask);
-app.get('/getAllTasks', authenticateJWT, getAllTasks);
+app.post('/create',authenticateJWT, createTask);
+app.post('/findTaskById',authenticateJWT, findTaskById);
+app.post('/update',authenticateJWT, updateTask);
+app.post('/getAllTasks', authenticateJWT, getAllTasks);

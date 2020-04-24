@@ -81,11 +81,12 @@ exports.getAllTasks = async (req, res) => {
     res.status(400).send({
       message: "userId can not be empty!",
     });
+    return
   }
   try {
     const foundTasks = await Task.findAll({
       where: {
-        userId: req.body.userId
+        userId
       }
     });
     if (foundTasks) {
@@ -93,8 +94,10 @@ exports.getAllTasks = async (req, res) => {
         success: true,
         data: foundTasks
       })
+      return
     }
   } catch (err) {
     res.status(500).send(err);
+    return
   }
 }
