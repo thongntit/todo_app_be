@@ -1,11 +1,13 @@
 const app = module.exports = require('express')();
-
+const { authenticateJWT } = require("../helper/middlewares")
 const {
   createTask,
   findTaskById,
-  updateTask
+  updateTask,
+  getAllTasks
 } = require('../api').tasks;
 
-app.post('/create', createTask);
-app.post('/findTaskById', findTaskById);
-app.post('/update', updateTask);
+app.post('/create',authenticateJWT, createTask);
+app.post('/findTaskById',authenticateJWT, findTaskById);
+app.post('/update',authenticateJWT, updateTask);
+app.post('/getAllTasks', authenticateJWT, getAllTasks);
