@@ -114,7 +114,9 @@ exports.deleteTask = async (req, res) => {
       where: { id: id }
     });
     if (deleted) {
-      return res.status(200).send('Task deleted');
+      return res.status(200).send({
+        success: true
+      });
     }
     throw new Error("Task not found");
   } catch (error) {
