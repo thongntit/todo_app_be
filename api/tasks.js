@@ -100,4 +100,25 @@ exports.getAllTasks = async (req, res) => {
     res.status(500).send(err);
     return
   }
-}
+};
+exports.deleteTask = async (req, res) => {
+  const { id } = req.body;
+  if (!id) {
+    res.status(400).send({
+      message: 'id can not be empty!',
+    });
+    return;
+  }
+  try {
+    const deleted = await Task.destroy({
+      where: { id: id }
+    });
+    if (deleted) {
+      return res.status(200).send('Task deleted');
+    }
+    throw new Error("Task not found");
+  } catch (error) {
+    res.status(500).send(error.message);
+    return;
+  }
+};
