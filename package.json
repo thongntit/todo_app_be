@@ -7,7 +7,7 @@
     "db:pre-migrate": "npx sequelize db:create",
     "db:migrate": "npm run db:pre-migrate && npx sequelize db:migrate",
     "start": "node app.js",
-    "start:prod": "npm run db:migrate --env production && npm run start"
+    "start:prod": "npm run db:migrate && npm run start"
   },
   "repository": {
     "type": "git",
