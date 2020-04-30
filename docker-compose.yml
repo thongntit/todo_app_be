@@ -5,6 +5,7 @@ services:
 
   db:
     image: mysql
+    container_name: todo-app-db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
@@ -15,6 +16,7 @@ services:
       - todo_db:/var/lib/mysql
 
   adminer:
+    container_name: todo-app-adminer
     image: adminer
     restart: always
     ports:
