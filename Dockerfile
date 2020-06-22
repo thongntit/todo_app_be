@@ -2,7 +2,8 @@ FROM node:10-alpine
 
 WORKDIR /app
 ADD package.json /app
-RUN npm install
+ADD package-lock.json /app
+RUN npm ci
 ADD . /app
 
 CMD ["yarn", "start:prod"]
