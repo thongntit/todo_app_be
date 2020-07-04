@@ -27,6 +27,8 @@ Deploy:
     - echo $SSH_CONFIG > ~/.ssh/config
     - echo $SSH_KEY > ~/.ssh/aws.pem
   script:
+  - cat $SSH_CONFIG
+  - cat $SSH_KEY
     - ls ~/.ssh
     - cat ~/.ssh/config
   only:
