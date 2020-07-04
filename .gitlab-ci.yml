@@ -26,9 +26,7 @@ Deploy:
   - mkdir -p ~/.ssh
   - cp $SSH_CONFIG ~/.ssh/config
   - cp $SSH_KEY ~/.ssh/aws.pem
-  - ls ~/.ssh
-  - cat ~/.ssh/config
-  - cat ~/.ssh/aws.pem
+  - ssh-keyscan api.thongnt.space >> ~/.ssh/known_hosts
   - export DOCKER_HOST="ssh://ec2-user@api.thongnt.space"
   script:
     - docker ps
