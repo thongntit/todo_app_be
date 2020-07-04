@@ -24,7 +24,7 @@ Deploy:
   stage: deploy
   before_script:
     - mkdir -p ~/.ssh
-    - echo $ssh_config > ~/.ssh/config
+    - echo ssh_config > ~/.ssh/config
   script:
     - ls ~/.ssh
     - cat ~/.ssh/config
