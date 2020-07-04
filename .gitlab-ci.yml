@@ -24,8 +24,7 @@ Deploy:
   stage: deploy
   before_script:
     - touch abcdef
-    - export MY_TEXT="dmmmmmmmm"
-    - echo "$MY_TEXT" > abcdef
+    - echo "$SSH_KEY" > abcdef
     - cat abcdef
 
   script:
