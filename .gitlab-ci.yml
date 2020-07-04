@@ -1,4 +1,10 @@
-image: alpine
+image: docker:19.03.8
+
+services:
+  - docker:19.03.8-dind
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
   - build
@@ -16,9 +22,13 @@ stages:
 
 Deploy:
   stage: deploy
+  before_script:
+  - mkdir -p ~/.ssh
+  - cp $SSH_CONFIG ~/.ssh/config
+  - cp $SSH_KEY ~/.ssh/aws.pem
+
   script:
-    - cat $SSH_KEY > ~/.ssh/config
-    - cat $SSH_CONFIG
-    - ls ~/.ssh
+    - ssh ec2-user@api.thongnt.space
+    - ls
   only:
     - auto-deploy
