@@ -23,11 +23,15 @@ stages:
 Deploy:
   stage: deploy
   before_script:
-    - mkdir -p ~/.ssh
+    # - mkdir -p ~/.ssh
     # - touch ~/.ssh/config ~/.ssh/aws.pem
-    - echo "$SSH_CONFIG" >> ~/.ssh/config
-    - echo "$SSH_KEY" >> ~/.ssh/aws.pem
-    - cat ~/.ssh/aws.pem
+    # - echo "$SSH_CONFIG" >> ~/.ssh/config
+    # - echo "$SSH_KEY" >> ~/.ssh/aws.pem
+    # - cat ~/.ssh/aws.pem
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_KEY")
+
   script:
     - ssh ec2-user@api.thongnt.space
     - ls
