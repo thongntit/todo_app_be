@@ -28,9 +28,10 @@ Deploy:
     # - echo "$SSH_CONFIG" >> ~/.ssh/config
     # - echo "$SSH_KEY" >> ~/.ssh/aws.pem
     # - cat ~/.ssh/aws.pem
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_KEY")
+    - echo "$SSH_KEY" | ssh-add -
+
 
   script:
     - ssh ec2-user@api.thongnt.space
