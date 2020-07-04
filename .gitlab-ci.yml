@@ -1,13 +1,14 @@
 image: docker:19.03.8
 
 services:
-    - docker:19.03.8-dind
+  - docker:19.03.8-dind
 
 before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
   - build
+  - deploy
 
 Dockerize:
   stage: build
@@ -16,5 +17,19 @@ Dockerize:
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - master
+
+Deploy:
+  stage: deploy
+  before_script:
+  - mkdir -p ~/.ssh
+  - cp $SSH_CONFIG ~/.ssh/config
+  - cp $SSH_KEY ~/.ssh/aws.pem
+  - chmod 400 ~/.ssh/aws.pem
+  - ssh-keyscan api.thongnt.space >> ~/.ssh/known_hosts
+  - export DOCKER_HOST="ssh://ec2-user@api.thongnt.space"
+  script:
+    - docker service update --image $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA todo_todo-be
   only:
     - master
