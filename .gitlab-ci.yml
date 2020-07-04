@@ -29,8 +29,8 @@ Deploy:
   - ls ~/.ssh
   - cat ~/.ssh/config
   - cat ~/.ssh/aws.pem
+  - export DOCKER_HOST="ssl://ec2-user@api.thongnt.space"
   script:
-    - ssh ec2-user@api.thongnt.space
-    - ls
+    - docker ps
   only:
     - auto-deploy
