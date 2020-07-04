@@ -24,7 +24,8 @@ Deploy:
   stage: deploy
   before_script:
     - touch abcdef
-    - echo "dmmmmm" > abcdef
+    - export MY_TEXT="dmmmmmmmm"
+    - echo "$MY_TEXT" > abcdef
     - cat abcdef
 
   script:
