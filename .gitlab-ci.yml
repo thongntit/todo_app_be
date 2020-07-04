@@ -16,11 +16,8 @@ stages:
 
 Deploy:
   stage: deploy
-  before_script:
-    - touch abcdef
-
   script:
-    - echo $SSH_KEY
-    - ls
+    - cat $SSH_KEY
+    - cat $SSH_CONFIG
   only:
     - auto-deploy
