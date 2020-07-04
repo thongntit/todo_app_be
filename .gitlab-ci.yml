@@ -18,7 +18,7 @@ Deploy:
   stage: deploy
   before_script:
     - touch abcdef
-    - echo "$SSH_KEY"
+    - echo $SSH_KEY
     - sh -c "echo "$SSH_KEY" > abcdef"
     - cat abcdef
 
