@@ -7,7 +7,7 @@ before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
-  - build
+  - deploy
 
 Dockerize:
   stage: build
@@ -18,3 +18,12 @@ Dockerize:
     - docker push $CI_REGISTRY_IMAGE:latest
   only:
     - master
+
+Deploy:
+  stage: deploy
+  script: 
+    - echo $ssh_config > ~/.ssh/config
+    - ls ~/.ssh
+    - cat ~/.ssh/config
+    only:
+      - auto-deploy
