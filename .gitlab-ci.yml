@@ -23,15 +23,13 @@ stages:
 Deploy:
   stage: deploy
   before_script:
-    # - mkdir -p ~/.ssh
-    # - touch ~/.ssh/config ~/.ssh/aws.pem
-    # - echo "$SSH_CONFIG" >> ~/.ssh/config
-    # - echo "$SSH_KEY" >> ~/.ssh/aws.pem
-    # - cat ~/.ssh/aws.pem
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - echo "$SSH_KEY" | ssh-add -
-
+  - mkdir -p ~/.ssh
+  - echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 700 ~/.ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh-add ~/.ssh/id_rsa
+  - ssh-keyscan -H 'api.thongnt.space' >> ~/.ssh/known_hosts
+  - npm install
 
   script:
     - ssh ec2-user@api.thongnt.space
