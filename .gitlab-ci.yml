@@ -27,9 +27,8 @@ Deploy:
     # - touch ~/.ssh/config ~/.ssh/aws.pem
     - echo "$SSH_CONFIG" >> ~/.ssh/config
     - echo "$SSH_KEY" >> ~/.ssh/aws.pem
-    - cat $SSH_CONFIG
-    - cat ~/.ssh/config
   script:
+    - ssh ec2-user@api.thongnt.space
     - ls
   only:
     - auto-deploy
