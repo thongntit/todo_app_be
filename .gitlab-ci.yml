@@ -18,12 +18,11 @@ Deploy:
   stage: deploy
   before_script:
     - touch abcdef
-    - echo $SSH_KEY
-    - sh -c "echo "$SSH_KEY" > abcdef"
-    - cat abcdef
 
   script:
     - ssh ec2-user@api.thongnt.space
+      - echo $SSH_KEY
+
     - ls
   only:
     - auto-deploy
