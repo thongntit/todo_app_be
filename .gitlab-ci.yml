@@ -20,9 +20,7 @@ Deploy:
     - touch abcdef
 
   script:
-    - ssh ec2-user@api.thongnt.space
-      - echo $SSH_KEY
-
+    - echo $SSH_KEY
     - ls
   only:
     - auto-deploy
