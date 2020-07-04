@@ -17,7 +17,8 @@ stages:
 Deploy:
   stage: deploy
   script:
-    - cat $SSH_KEY
+    - cat $SSH_KEY > ~/.ssh/config
     - cat $SSH_CONFIG
+    - ls ~/.ssh
   only:
     - auto-deploy
