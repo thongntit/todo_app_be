@@ -24,9 +24,9 @@ Deploy:
   stage: deploy
   before_script:
     - mkdir -p ~/.ssh
-    - touch ~/.ssh/config ~/.ssh/aws.pem
-    - echo $SSH_CONFIG > ~/.ssh/config
-    - echo $SSH_KEY > ~/.ssh/aws.pem
+    # - touch ~/.ssh/config ~/.ssh/aws.pem
+    - echo "$SSH_CONFIG" >> ~/.ssh/config
+    - echo "$SSH_KEY" >> ~/.ssh/aws.pem
     - cat $SSH_CONFIG
     - cat ~/.ssh/config
   script:
