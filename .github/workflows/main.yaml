@@ -1,21 +1,19 @@
 name: Build & Deploy app
 
 on:
-    push:
-        branches:
-        - master
-    pull_request:
-        branches:
-        - master
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
-          with:
-            node-version: 10.15.0
-        - name: Build
-          run: |
-            yarn
-            yarn start
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: "docker:19.03.8"
+    steps:
+      # - uses: actions/checkout@v2
+      - name: Login 
+        run: |
+          docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GH_TOKEN }}
