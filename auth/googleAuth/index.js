@@ -13,7 +13,9 @@ exports.login = async (req, res) => {
       res.status(400).send({
         message: "invalid tokenId",
       });
-    } else {
+    }
+    const now = new Date();
+    if (data.exp > now.getTime() / 1000) {
       try {
         User.findOne({
           where: {
@@ -61,6 +63,10 @@ exports.login = async (req, res) => {
       } catch (error) {
         res.status(500).send(error);
       }
+    } else {
+      res.status(400).send({
+        message: "invalid tokenId",
+      });
     }
   }
-};
+}
