@@ -17,7 +17,7 @@ jobs:
       - name: Login 
         run: |
           docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GH_TOKEN }}
-          docker pull $GITHUB_REPOSITORY:latest || true
-          docker build --cache-from $GITHUB_REPOSITORY:latest --tag $GITHUB_REPOSITORY:${GITHUB_SHA::8} --tag $GITHUB_REPOSITORY:latest .
-          docker push $GITHUB_ACTOR/$GITHUB_REPOSITORY:${GITHUB_SHA::8}
-          docker push $GITHUB_ACTOR/$GITHUB_REPOSITORY:latest
+          docker pull docker.pkg.github.com/$GITHUB_REPOSITORY:latest || true
+          docker build --cache-from docker.pkg.github.com/$GITHUB_REPOSITORY:latest --tag docker.pkg.github.com/$GITHUB_REPOSITORY:${GITHUB_SHA::8} --tag $GITHUB_REPOSITORY:latest .
+          docker push docker.pkg.github.com/$GITHUB_REPOSITORY:${GITHUB_SHA::8}
+          docker push docker.pkg.github.com/$GITHUB_REPOSITORY:latest
