@@ -18,6 +18,6 @@ jobs:
         run: |
           docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GH_TOKEN }}
           docker pull docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:latest || true
-          docker build --cache-from docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:latest --tag docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:${GITHUB_SHA::8} --tag $GITHUB_REPOSITORY:latest .
+          docker build --cache-from docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:latest --tag docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:${GITHUB_SHA::8} --tag docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:latest .
           docker push docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:${GITHUB_SHA::8}
           docker push docker.pkg.github.com/$GITHUB_REPOSITORY/todo_app:latest
