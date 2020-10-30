@@ -13,17 +13,11 @@ jobs:
     container:
       image: "docker:19.03.8"
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Login 
         run: |
           docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GH_TOKEN }}
-  pull:
-    runs-on: ubuntu-latest
-    container:
-      image:  "docker:19.03.8"
-    steps:
-      - uses: actions/checkout@v2
-      - name: Pull
-        run: |
           docker pull $GITHUB_REPOSITORY:latest || true
           docker build --cache-from $GITHUB_REPOSITORY:latest --tag $GITHUB_REPOSITORY:${GITHUB_SHA::8} --tag $GITHUB_REPOSITORY:latest .
+          docker push $GITHUB_REPOSITORY:${GITHUB_SHA::8}
+          docker push $GITHUB_REPOSITORY:latest
