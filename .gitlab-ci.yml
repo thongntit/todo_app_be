@@ -28,7 +28,7 @@ Deploy:
   - cp $SSH_KEY ~/.ssh/hiraism
   - chmod 400 ~/.ssh/hiraism
   - ssh-keyscan api.thongnt.com >> ~/.ssh/known_hosts
-  - export DOCKER_HOST="$DOCKER_HOST"
+  - export DOCKER_HOST="ssh://thongnt@api.thongnt.com"
   script:
     - docker service update --image $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA todo_todo-be
   only:
